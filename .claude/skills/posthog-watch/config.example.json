@@ -1,0 +1,70 @@
+{
+  "posthog": {
+    "project_id": 0,
+    "host": "https://eu.posthog.com"
+  },
+  "timezone": "Europe/Lisbon",
+  "internal_users": {
+    "email_domains": ["yourcompany.com"],
+    "distinct_ids": [],
+    "cohort_id": null
+  },
+  "group_property": "tenant",
+  "vocabulary": {
+    "replace": {
+      "PLG": "activation"
+    }
+  },
+  "errors": {
+    "window_minutes": 60,
+    "ingestion_lag_minutes": 15,
+    "baseline_days": 7,
+    "ignore_errors": ["403", "404"],
+    "spike_multiplier": 3,
+    "spike_min_count": 3,
+    "known_issues": []
+  },
+  "activation": {
+    "window_days": 28,
+    "min_sample": 30,
+    "funnel_steps": ["signed_in", "project_created", "first_item_added"],
+    "conversion_window_days": 14,
+    "time_to_value": {
+      "from": "project_created",
+      "to": "first_item_added"
+    },
+    "friction_events": ["form_submit_blocked"]
+  },
+  "priority": {
+    "errors": { "reach": 3, "severity": 3, "trend": 2, "confidence": 1 },
+    "activation": { "reach": 3, "severity": 3, "stage": 2, "confidence": 1 },
+    "p1_min": 2.4,
+    "p2_min": 1.8
+  },
+  "reports": {
+    "save_to": "slack",
+    "notion_parent_url": ""
+  },
+  "notify": {
+    "dry_run": true,
+    "daily_digest_time": "09:00",
+    "weekly_digest_day": "Monday",
+    "recipients": [
+      {
+        "name": "Engineering",
+        "channels": ["slack"],
+        "slack_channel": "#errors",
+        "types": ["error"],
+        "min_priority": "P2"
+      },
+      {
+        "name": "UX designer",
+        "channels": ["slack", "email"],
+        "slack_channel": "#ux-findings",
+        "email": "designer@yourcompany.com",
+        "types": ["ux_gap", "feature_opportunity", "small_change"],
+        "min_priority": "P2"
+      }
+    ]
+  }
+}
